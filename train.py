@@ -432,6 +432,12 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
 
                 # Save last, best and delete
                 torch.save(ckpt, last)
+
+                if epoch%5==0:
+                    if DRIVE_PATH:
+                        drive_path = os.path.join(DRIVE_PATH, f"epoch_{epoch}.pt")
+                        torch.save(ckpt, drive_path)
+                        print(f"Saved epoch {epoch}")
                 if best_fitness == fi:
                     torch.save(ckpt, best)
                 if loggers['wandb']:
